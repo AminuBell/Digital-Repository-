@@ -1,0 +1,144 @@
+<?php
+include("./helpers/checkLogin.php");
+include("../dbcon/conn.php");
+checklogin();
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Uploads</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <?php include("./include/nav.php"); ?>
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+    <?php include("./include/sideBar.php"); ?>
+
+      <!-- partial:../../partials/_sidebar.html -->
+        <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body dashboard-tabs p-0">
+                <ul class="nav nav-tabs px-4" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#upload" role="tab"
+                      aria-controls="overview" aria-selected="true"> <i class="fa-sharp fa-solid fa-plus"></i>Update Form</a>
+                  </li>
+                  <!--<li class="nav-item">
+                    <a class="nav-link" id="sales-tab" data-bs-toggle="tab" href="#logs" role="tab"
+                      aria-controls="sales" aria-selected="false">Upload Logs</a>
+                  </li>-->
+
+                </ul>
+                <div class="tab-content py-0 px-0">
+                  <div class="tab-pane fade show active " id="upload" role="tabpanel" aria-labelledby="overview-tab">
+                    <div class="d-flex flex-wrap justify-content-xl-between">
+                      <div class="d-flex py-3 flex-grow-1  p-3 item">
+                        <div class="col-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">Supervisor Update Form</h4>
+                              <?php
+                              if(isset($_GET["id"])){
+                                $id = $_GET["id"];
+                                $sql = "SELECT * FROM `supervisor_tbl` WHERE id = '$id'";
+                                $res = mysqli_query($con,$sql);
+                                $data = mysqli_fetch_assoc($res);
+                              }
+
+
+?>
+
+                              <form class="forms-sample" action="./helpers/staff.php" method="post">
+                                <input type="hidden" name="id" value="<?php echo $id;  ?>">
+                                <div class="form-group">
+                                  <label for="full name"> Staff ID</label>
+                                  <input type="text" class=" form-control" name="staff_id" placeholder="Staff ID" value="<?php echo $data["staff_id"];   ?>" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="full name"> Email</label>
+                                  <input type="text" class=" form-control" name="email" value="<?php echo $data["email"];   ?>" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="name">Full Name</label>
+                                  <input type="text" class="form-control" name="name" placeholder="Name" value="<?php echo $data["name"];   ?>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary me-2" name="update">Update</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a
+                href="https://www.bootstrapdash.com/" target="_blank">It-Repository.com </a>20233</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a
+                href="https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard </a> templates</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+  <script src="js/data-table.js"></script>
+  <script src="js/jquery.dataTables.js"></script>
+  <script src="js/dataTables.bootstrap4.js"></script>
+  <!-- End custom js for this page-->
+
+  <script src="js/jquery.cookie.js" type="text/javascript"></script>
+  <script src="./js/file-upload.js"></script>
+</body>
+
+</html>
